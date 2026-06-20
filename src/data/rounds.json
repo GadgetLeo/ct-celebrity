@@ -1,0 +1,158 @@
+[
+  {
+    "id": 1,
+    "durationSeconds": 90,
+    "hints": [
+      "Writes often about Ethereum infrastructure and public goods.",
+      "Known for thoughtful long-form posts rather than hype threads.",
+      "Frequently discusses privacy, scaling, and protocol governance.",
+      "Has appeared across crypto podcasts and conference panels.",
+      "Usually sounds more technical than market-focused."
+    ],
+    "options": ["@chainbard", "@rollupwriter", "@yieldmirror"],
+    "correctOptionIndex": 1
+  },
+  {
+    "id": 2,
+    "durationSeconds": 90,
+    "hints": [
+      "Often posts sharp takes about market structure.",
+      "Has a recognizable dry sense of humor on the timeline.",
+      "Frequently comments on exchanges, leverage, and trader behavior.",
+      "Rarely writes like a formal project account.",
+      "People quote this account during volatile market days."
+    ],
+    "options": ["@liquiditysage", "@zkcartel", "@mintoracle"],
+    "correctOptionIndex": 0
+  },
+  {
+    "id": 3,
+    "durationSeconds": 90,
+    "hints": [
+      "Focuses on consumer crypto and product design.",
+      "Talks about wallets, onboarding, and distribution.",
+      "Often compares crypto apps to mainstream mobile products.",
+      "More interested in users than protocol mechanics.",
+      "Shares clean frameworks for what makes apps feel useful."
+    ],
+    "options": ["@gaslessgm", "@appchainandy", "@productdegen"],
+    "correctOptionIndex": 2
+  },
+  {
+    "id": 4,
+    "durationSeconds": 90,
+    "hints": [
+      "Spends a lot of time around Farcaster culture and consumer crypto.",
+      "Often notices small product details before they become obvious.",
+      "Talks about social graphs, feeds, and crypto-native identity.",
+      "Sounds more like a builder than a pure trader.",
+      "Usually frames takes around what normal users will actually do."
+    ],
+    "options": ["@feedcaster", "@vaultmaxi", "@sequencerjoe"],
+    "correctOptionIndex": 0
+  },
+  {
+    "id": 5,
+    "durationSeconds": 90,
+    "hints": [
+      "Known for blunt takes about token launches and incentives.",
+      "Frequently comments on liquidity, emissions, and market design.",
+      "Usually skeptical of shiny announcements without usage.",
+      "Often posts during busy governance or airdrop weeks.",
+      "The account sounds like it has seen too many cycles."
+    ],
+    "options": ["@airdropsage", "@tokencritic", "@basedbuilder"],
+    "correctOptionIndex": 1
+  },
+  {
+    "id": 6,
+    "durationSeconds": 90,
+    "hints": [
+      "Mostly posts about onchain gaming and autonomous worlds.",
+      "Uses examples from game loops, economies, and player behavior.",
+      "Cares more about mechanics than price charts.",
+      "Often highlights small experimental projects.",
+      "The writing style feels playful but technical."
+    ],
+    "options": ["@worldengine", "@defiartist", "@rollupwriter"],
+    "correctOptionIndex": 0
+  },
+  {
+    "id": 7,
+    "durationSeconds": 90,
+    "hints": [
+      "Often explains zero-knowledge ideas in plain language.",
+      "Posts diagrams, threads, and mental models for privacy tech.",
+      "Frequently compares different proof systems and app use cases.",
+      "Less focused on trading, more focused on infrastructure.",
+      "People tag this account when a zk concept needs translating."
+    ],
+    "options": ["@zktranslator", "@liquiditysage", "@memecoinops"],
+    "correctOptionIndex": 0
+  },
+  {
+    "id": 8,
+    "durationSeconds": 90,
+    "hints": [
+      "Talks about wallet UX and account abstraction constantly.",
+      "Cares about passkeys, recovery, sessions, and sponsored gas.",
+      "Often critiques onboarding flows that feel too crypto-native.",
+      "Usually posts from a product engineering point of view.",
+      "The account wants apps to feel invisible to new users."
+    ],
+    "options": ["@walletsmith", "@yieldmirror", "@zkcartel"],
+    "correctOptionIndex": 0
+  },
+  {
+    "id": 9,
+    "durationSeconds": 90,
+    "hints": [
+      "Known for fast reactions to protocol governance drama.",
+      "Reads proposals closely and notices incentive weirdness.",
+      "Often posts screenshots from forums or governance dashboards.",
+      "Has a timeline full of DAOs, delegates, and treasury debates.",
+      "The tone is analytical, sometimes spicy."
+    ],
+    "options": ["@delegatewatch", "@gaslessgm", "@mintoracle"],
+    "correctOptionIndex": 0
+  },
+  {
+    "id": 10,
+    "durationSeconds": 90,
+    "hints": [
+      "Focuses on Base ecosystem apps and social distribution.",
+      "Often talks about mini apps, creators, and consumer funnels.",
+      "Likes simple experiences more than complex protocol messaging.",
+      "Frequently spots which apps have real retention.",
+      "Sounds optimistic without being blindly promotional."
+    ],
+    "options": ["@basedconsumer", "@chainbard", "@vaultmaxi"],
+    "correctOptionIndex": 0
+  },
+  {
+    "id": 11,
+    "durationSeconds": 90,
+    "hints": [
+      "Posts about NFT culture without sounding stuck in 2021.",
+      "Often connects collectibles to identity, games, and communities.",
+      "Cares about creative direction and launch mechanics.",
+      "Frequently comments on creator tools and mint experiences.",
+      "The account is more taste-driven than finance-driven."
+    ],
+    "options": ["@mintcurator", "@sequencerjoe", "@tokencritic"],
+    "correctOptionIndex": 0
+  },
+  {
+    "id": 12,
+    "durationSeconds": 90,
+    "hints": [
+      "Lives deep in L2 scaling discussions.",
+      "Often compares data availability, fees, and execution environments.",
+      "Posts practical notes about what breaks for app developers.",
+      "Has opinions on decentralization roadmaps and sequencers.",
+      "The account sounds like it reads release notes for fun."
+    ],
+    "options": ["@sequencerjoe", "@feedcaster", "@airdropmath"],
+    "correctOptionIndex": 0
+  }
+]
