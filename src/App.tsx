@@ -15,10 +15,10 @@ import { createPublicClient, createWalletClient, custom, encodeFunctionData, htt
 import { baseSepolia } from 'viem/chains';
 import rounds from './data/rounds.json';
 import { CT_GUESS_GAME_ABI } from './lib/contract';
-import type { Round, SubmitState } from './lib/types';
+import type { Round, RoundOption, SubmitState } from './lib/types';
 
 const CONTRACT_ADDRESS = import.meta.env.VITE_GAME_CONTRACT_ADDRESS as `0x${string}` | undefined;
-const ROUND_SECONDS_FALLBACK = 90;
+const ROUND_SECONDS_FALLBACK = 300;
 type PreparedGuess = {
   roundId: number;
   option: number;
@@ -52,6 +52,14 @@ function pickRound(excludeId?: number): Round {
   const available = (rounds as Round[]).filter((round) => round.id !== excludeId);
   const pool = available.length ? available : (rounds as Round[]);
   return pool[Math.floor(Math.random() * pool.length)];
+}
+
+function getOptionHandle(option: RoundOption) {
+  return typeof option === 'string' ? option : option.handle;
+}
+
+function getOptionAvatar(option: RoundOption) {
+  return typeof option === 'string' ? undefined : option.avatar;
 }
 
 async function pickUnplayedRound(player: `0x${string}`, excludeId?: number) {
@@ -162,7 +170,7 @@ export default function App() {
   const runtimeRef = useRef<CofheRuntime | null>(null);
   const runtimePromiseRef = useRef<Promise<CofheRuntime> | null>(null);
 
-  const selectedAccount = selectedOption === null ? null : round.options[selectedOption];
+  const selectedAccount = selectedOption === null ? null : getOptionHandle(round.options[selectedOption]);
   const isMissingConfig = !CONTRACT_ADDRESS || import.meta.env.VITE_PRIVY_APP_ID === undefined;
   const canPlayWithoutWallet = isMissingConfig;
   const selectedGuessReady =
@@ -500,13 +508,16 @@ export default function App() {
   }
 
   return (
-    <main className="app-shell">
+    <main className={`app-shell ${authenticated || canPlayWithoutWallet ? 'has-rail' : ''}`}>
+      {(authenticated || canPlayWithoutWallet) && <BrandAside />}
       <section className="hero-panel">
         <div className="brand-row">
           <div className="brand-lock" aria-hidden="true">
             <LockKeyhole size={20} />
           </div>
           <span>Blind Item Bureau</span>
+          <span className="brand-row-spacer" aria-hidden="true" />
+          <span className="brand-meta">Encrypted case file</span>
         </div>
 
         {!authenticated && !canPlayWithoutWallet ? (
@@ -549,6 +560,30 @@ export default function App() {
         )}
       </section>
     </main>
+  );
+}
+
+function BrandAside() {
+  return (
+    <aside className="brand-aside" aria-hidden="true">
+      <div className="ba-mark">
+        <span className="brand-lock">
+          <LockKeyhole size={22} />
+        </span>
+        <span>Blind Item Bureau</span>
+      </div>
+      <h2>Decrypt the timeline.</h2>
+      <p>
+        A blind-item guessing game powered by encrypted reveals. Five public clues, three familiar accounts,
+        and one sealed identity.
+      </p>
+      <div className="ba-cipher">(k4#?p(n&gt;39-2)</div>
+      <ul>
+        <li>Read the sealed dossier</li>
+        <li>Pick the account before time runs out</li>
+        <li>The identity only opens if you're right</li>
+      </ul>
+    </aside>
   );
 }
 
@@ -609,14 +644,17 @@ function GameBoard(props: GameBoardProps) {
         {!canPlayWithoutWallet && <button className="ghost-action" onClick={logout}>Exit</button>}
       </header>
 
-      <div className="status-strip">
-        <div className={`timer-pill ${timerTone}`} aria-live="polite">
-          <Clock3 size={18} />
-          <span>{minutes}:{seconds}</span>
-        </div>
-        <div className="wallet-chip">
-          {walletAddress
-            ? `${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`
+        <div className="status-strip">
+          <div className={`timer-pill ${timerTone}`} aria-live="polite">
+            <Clock3 size={18} />
+            <span>{minutes}:{seconds}</span>
+          </div>
+          <span className="status-note">
+            Case #{String(round.id).padStart(2, '0')} / 3 suspects / 5 clues
+          </span>
+          <div className="wallet-chip">
+            {walletAddress
+              ? `${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`
             : canPlayWithoutWallet
               ? 'Demo mode'
               : 'Embedded wallet'}
@@ -681,18 +719,24 @@ function GameBoard(props: GameBoardProps) {
           </div>
         </div>
         <div className="options-panel">
-          {round.options.map((option, index) => (
-            <button
-              className={`option-button ${selectedOption === index ? 'selected' : ''}`}
-              key={option}
-              onClick={() => selectOption(index)}
-              disabled={isCorrect !== null || submitState === 'timeout'}
-              aria-pressed={selectedOption === index}
-            >
-              <span className="option-letter">{String.fromCharCode(65 + index)}</span>
-              <span className="option-text">{option}</span>
-            </button>
-          ))}
+          {round.options.map((option, index) => {
+            const handle = getOptionHandle(option);
+            const avatar = getOptionAvatar(option);
+
+            return (
+              <button
+                className={`option-button ${selectedOption === index ? 'selected' : ''}`}
+                key={handle}
+                onClick={() => selectOption(index)}
+                disabled={isCorrect !== null || submitState === 'timeout'}
+                aria-pressed={selectedOption === index}
+              >
+                <span className="option-letter">{String.fromCharCode(65 + index)}</span>
+                {avatar && <img className="option-avatar" src={avatar} alt="" loading="lazy" />}
+                <span className="option-text">{handle}</span>
+              </button>
+            );
+          })}
         </div>
       </section>
 

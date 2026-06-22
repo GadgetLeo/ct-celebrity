@@ -6,4 +6,8 @@ coverage
 .env
 .env.local
 typechain-types
+*.tsbuildinfo
+
 .vercel
+.vercel-*
+.hardhat-*

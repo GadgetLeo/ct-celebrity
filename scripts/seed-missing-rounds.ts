@@ -12,13 +12,17 @@ type SeedRound = {
   id: number;
   durationSeconds: number;
   hints: [string, string, string, string, string];
-  options: [string, string, string];
+  options: [string | { handle: string }, string | { handle: string }, string | { handle: string }];
   correctOptionIndex: number;
 };
 
 const rounds = JSON.parse(
   fs.readFileSync(path.join(process.cwd(), 'src/data/rounds.json'), 'utf8')
 ) as SeedRound[];
+
+function getOptionHandle(option: string | { handle: string }) {
+  return typeof option === 'string' ? option : option.handle;
+}
 
 async function main() {
   const address = process.env.GAME_CONTRACT_ADDRESS;
@@ -60,7 +64,7 @@ async function main() {
 
     const tx = await game.createRound(
       round.hints,
-      round.options,
+      round.options.map(getOptionHandle),
       encryptedCorrectOption,
       round.durationSeconds
     );
