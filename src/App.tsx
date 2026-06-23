@@ -814,6 +814,30 @@ function GameBoard(props: GameBoardProps) {
             </button>
           )}
         </div>
+
+        <aside className="spotlight-panel" aria-label="Celebrity quiz spotlight">
+          <div className="spotlight-bulbs" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+          </div>
+          <div className="spotlight-copy">
+            <p className="eyebrow">Red carpet read</p>
+            <strong>Three names walk in. One gets the spotlight.</strong>
+          </div>
+          <div className="spotlight-chips">
+            <span>5 hints</span>
+            <span>final three</span>
+            <span>private reveal</span>
+          </div>
+          <div className="spotlight-ticker" aria-hidden="true">
+            <span>HOT SEAT / TIMELINE FAMOUS / WHO GETS THE SPOTLIGHT / </span>
+            <span>HOT SEAT / TIMELINE FAMOUS / WHO GETS THE SPOTLIGHT / </span>
+          </div>
+        </aside>
       </div>
     </div>
   );

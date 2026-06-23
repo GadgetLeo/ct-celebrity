@@ -883,9 +883,161 @@ h1 {
   background: linear-gradient(180deg, transparent, rgba(8, 22, 36, 0.94) 34%);
 }
 
+.spotlight-panel {
+  position: relative;
+  min-height: 178px;
+  overflow: hidden;
+  display: grid;
+  align-content: end;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(246, 216, 93, 0.28);
+  border-radius: var(--radius-lg);
+  color: var(--cream);
+  background:
+    radial-gradient(circle at 22% 8%, rgba(246, 216, 93, 0.28), transparent 26%),
+    radial-gradient(circle at 84% 2%, rgba(95, 226, 255, 0.22), transparent 28%),
+    linear-gradient(135deg, rgba(255, 107, 214, 0.1), transparent 44%),
+    rgba(244, 247, 250, 0.045);
+  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(244, 247, 250, 0.08);
+}
+
+.spotlight-panel::before,
+.spotlight-panel::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.spotlight-panel::before {
+  inset: -46px 10% auto;
+  height: 112px;
+  background:
+    linear-gradient(100deg, transparent 0 14%, rgba(244, 247, 250, 0.1) 14% 28%, transparent 28% 47%, rgba(118, 212, 220, 0.12) 47% 60%, transparent 60%),
+    linear-gradient(90deg, rgba(246, 216, 93, 0.18), rgba(95, 226, 255, 0.18));
+  filter: blur(1px);
+  opacity: 0.82;
+  transform: skewX(-14deg);
+}
+
+.spotlight-panel::after {
+  inset: auto -24px -58px auto;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(246, 216, 93, 0.34), transparent 52%),
+    repeating-conic-gradient(from 8deg, rgba(244, 247, 250, 0.08) 0 6deg, transparent 6deg 16deg);
+  opacity: 0.74;
+}
+
+.spotlight-bulbs {
+  position: absolute;
+  top: 16px;
+  left: 18px;
+  right: 18px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  z-index: 1;
+}
+
+.spotlight-bulbs span {
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(244, 247, 250, 0.28);
+  box-shadow: 0 0 16px rgba(244, 247, 250, 0.16);
+}
+
+.spotlight-bulbs span:nth-child(odd) {
+  background: var(--neon-yellow);
+  box-shadow: 0 0 18px rgba(246, 216, 93, 0.52);
+}
+
+.spotlight-bulbs span:nth-child(3n) {
+  background: var(--teal-bright);
+  box-shadow: 0 0 18px rgba(118, 212, 220, 0.48);
+}
+
+.spotlight-copy,
+.spotlight-chips,
+.spotlight-ticker {
+  position: relative;
+  z-index: 1;
+}
+
+.spotlight-copy strong {
+  display: block;
+  margin-top: 4px;
+  max-width: 16ch;
+  font-size: clamp(1.25rem, 3vw, 1.7rem);
+  line-height: 1.05;
+}
+
+.spotlight-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.spotlight-chips span {
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 10px;
+  border: 1px solid rgba(244, 247, 250, 0.16);
+  border-radius: var(--radius-xs);
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transform: rotate(-1deg);
+}
+
+.spotlight-chips span:nth-child(2) {
+  color: var(--ink);
+  background: var(--neon-yellow);
+  transform: rotate(1deg);
+}
+
+.spotlight-chips span:nth-child(3) {
+  color: var(--ink);
+  background: var(--teal-bright);
+}
+
+.spotlight-ticker {
+  overflow: hidden;
+  display: flex;
+  gap: 0;
+  padding: 8px 10px;
+  border: 1px solid rgba(118, 212, 220, 0.22);
+  border-radius: var(--radius-xs);
+  color: var(--teal-bright);
+  background: rgba(6, 14, 24, 0.62);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.spotlight-ticker span {
+  flex: 0 0 auto;
+  animation: ticker-slide 14s linear infinite;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes ticker-slide {
+  to {
+    transform: translateX(-100%);
   }
 }
 
@@ -1034,6 +1186,10 @@ h1 {
     padding-top: 0;
     background: none;
   }
+
+  .spotlight-panel {
+    min-height: 228px;
+  }
 }
 
 @media (max-width: 420px) {
@@ -1045,7 +1201,8 @@ h1 {
   .status-strip,
   .clue-board,
   .guess-panel,
-  .stage-card {
+  .stage-card,
+  .spotlight-panel {
     border-radius: 12px;
   }
 
@@ -1059,5 +1216,31 @@ h1 {
 
   .wallet-chip {
     max-width: 42%;
+  }
+
+  .spotlight-panel {
+    min-height: 126px;
+    padding: 14px;
+  }
+
+  .spotlight-copy strong {
+    max-width: 20ch;
+    font-size: 1.08rem;
+  }
+
+  .spotlight-bulbs {
+    top: 12px;
+    left: 14px;
+    right: 14px;
+  }
+
+  .spotlight-chips span {
+    min-height: 30px;
+    padding: 6px 8px;
+    font-size: 0.62rem;
+  }
+
+  .spotlight-ticker {
+    display: none;
   }
 }
