@@ -1029,9 +1029,9 @@ h1 {
   }
 
   .action-bar {
-    position: sticky;
-    bottom: 20px;
+    position: static;
     padding-top: 0;
+    background: none;
   }
 }
 

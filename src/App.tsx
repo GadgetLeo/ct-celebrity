@@ -632,6 +632,12 @@ function GameBoard(props: GameBoardProps) {
   const seconds = String(secondsLeft % 60).padStart(2, '0');
   const shouldStartNewMystery = submitState === 'error' && /already played/i.test(statusMessage);
   const hasNoMysteries = submitState === 'error' && /every celebrity/i.test(statusMessage);
+  const hasResultContent =
+    submitState === 'encrypting' ||
+    submitState === 'submitting' ||
+    submitState === 'timeout' ||
+    isCorrect !== null ||
+    Boolean(statusMessage);
 
   return (
     <div className="game-board">
@@ -740,44 +746,46 @@ function GameBoard(props: GameBoardProps) {
         </div>
       </section>
 
-      <section className={`result-panel ${submitState}`} aria-live="polite">
-        {(submitState === 'encrypting' || submitState === 'submitting') && (
-          <div className="progress-row">
-            <span className="loading-mark small-spinner" aria-hidden="true" />
+      {hasResultContent && (
+        <section className={`result-panel ${submitState}`} aria-live="polite">
+          {(submitState === 'encrypting' || submitState === 'submitting') && (
+            <div className="progress-row">
+              <span className="loading-mark small-spinner" aria-hidden="true" />
+              <p>{statusMessage}</p>
+            </div>
+          )}
+          {submitState === 'timeout' && (
+            <>
+              <Hourglass size={24} />
+              <div>
+                <strong>Time's up</strong>
+                <p>The celeb stays hidden. Start a new quiz when you're ready.</p>
+              </div>
+            </>
+          )}
+          {isCorrect === true && (
+            <>
+              <CheckCircle2 size={24} />
+              <div>
+                <strong>Correct</strong>
+                <p>{selectedAccount} was tonight's celebrity.</p>
+              </div>
+            </>
+          )}
+          {isCorrect === false && (
+            <>
+              <XCircle size={24} />
+              <div>
+                <strong>Incorrect</strong>
+                <p>The celeb stays hidden. Try another round.</p>
+              </div>
+            </>
+          )}
+          {isCorrect === null && !['timeout', 'encrypting', 'submitting'].includes(submitState) && statusMessage && (
             <p>{statusMessage}</p>
-          </div>
-        )}
-        {submitState === 'timeout' && (
-          <>
-            <Hourglass size={24} />
-            <div>
-              <strong>Time's up</strong>
-              <p>The celeb stays hidden. Start a new quiz when you're ready.</p>
-            </div>
-          </>
-        )}
-        {isCorrect === true && (
-          <>
-            <CheckCircle2 size={24} />
-            <div>
-              <strong>Correct</strong>
-              <p>{selectedAccount} was tonight's celebrity.</p>
-            </div>
-          </>
-        )}
-        {isCorrect === false && (
-          <>
-            <XCircle size={24} />
-            <div>
-              <strong>Incorrect</strong>
-              <p>The celeb stays hidden. Try another round.</p>
-            </div>
-          </>
-        )}
-        {isCorrect === null && !['timeout', 'encrypting', 'submitting'].includes(submitState) && statusMessage && (
-          <p>{statusMessage}</p>
-        )}
-      </section>
+          )}
+        </section>
+      )}
 
       <div className="action-bar">
         {hasNoMysteries ? (
