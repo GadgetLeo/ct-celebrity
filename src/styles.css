@@ -420,7 +420,7 @@ h1 {
 }
 
 .game-board::before {
-  content: "CASE FILE / SEALED IDENTITY / ENCRYPTED GUESS";
+  content: "BLIND ITEM / CELEB REVEAL / ENCRYPTED PICK";
   display: inline-flex;
   width: max-content;
   max-width: 100%;

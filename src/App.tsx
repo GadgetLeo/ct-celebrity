@@ -81,7 +81,7 @@ function friendlySubmitError(error: unknown) {
   const message = error instanceof Error ? error.message : String(error);
 
   if (/user rejected|denied|cancel/i.test(message)) {
-    return 'Transaction cancelled. Your guess was not submitted.';
+    return 'Transaction cancelled. Your pick was not submitted.';
   }
 
   if (/No Privy embedded wallet/i.test(message)) {
@@ -89,7 +89,7 @@ function friendlySubmitError(error: unknown) {
   }
 
   if (/already submitted|DuplicateSubmission/i.test(message)) {
-    return 'This wallet already guessed this mystery. Start a new round.';
+    return 'This wallet already played this celebrity. Start a new round.';
   }
 
   if (/network|fetch|timeout/i.test(message)) {
@@ -284,7 +284,7 @@ export default function App() {
   useEffect(() => {
     if (secondsLeft === 0 && isCorrect === null) {
       setSubmitState('timeout');
-      setStatusMessage("Time's up. The identity stays sealed.");
+      setStatusMessage("Time's up. The celeb stays hidden.");
     }
   }, [secondsLeft, isCorrect]);
 
@@ -360,7 +360,7 @@ export default function App() {
           option: selectedOption,
           encryptedGuess
         });
-        setStatusMessage('Encrypted guess ready. One approval left.');
+        setStatusMessage('Private pick ready. One approval left.');
       } catch {
         if (cancelled) return;
         setPreparedGuess(null);
@@ -376,7 +376,7 @@ export default function App() {
   }, [selectedOption, round.id, isMissingConfig, authenticated, gameWallet, isCorrect]);
 
   async function resetRound() {
-    setStatusMessage('Finding a fresh mystery...');
+    setStatusMessage('Finding a fresh celebrity...');
     const nextRound =
       !isMissingConfig && gameWallet
         ? await pickUnplayedRound(gameWallet.address as `0x${string}`, round.id)
@@ -385,7 +385,7 @@ export default function App() {
     if (!nextRound) {
       setSelectedOption(null);
       setSubmitState('error');
-      setStatusMessage("You've guessed every mystery available right now.");
+      setStatusMessage("You've played every celebrity available right now.");
       setHasPlayableRound(false);
       setPreparedGuess(null);
       return;
@@ -414,7 +414,7 @@ export default function App() {
         setIsCorrect(simulatedResult);
         setSubmitState(simulatedResult ? 'correct' : 'incorrect');
         setStatusMessage(
-          simulatedResult ? 'Correct. Account revealed.' : 'Incorrect. The answer stays hidden.'
+          simulatedResult ? 'Correct. Celeb revealed.' : 'Incorrect. The celeb stays hidden.'
         );
         return;
       }
@@ -425,14 +425,14 @@ export default function App() {
 
       if (preparedGuess?.roundId !== round.id || preparedGuess.option !== selectedOption) {
         setSubmitState('idle');
-        setStatusMessage('Still preparing the encrypted guess. Try again in a moment.');
+        setStatusMessage('Still preparing your private pick. Try again in a moment.');
         return;
       }
 
       const encryptedGuess = preparedGuess.encryptedGuess;
       const publicClient = createGamePublicClient();
 
-      setStatusMessage('Approval is ready. Confirm once to lock in your guess.');
+      setStatusMessage('Approval is ready. Confirm once to lock in your pick.');
 
       const data = encodeFunctionData({
         abi: CT_GUESS_GAME_ABI,
@@ -468,7 +468,7 @@ export default function App() {
             }).then((hash: `0x${string}`) => ({ hash }));
           })();
 
-      setStatusMessage('Guess submitted. Waiting for Base Sepolia confirmation...');
+      setStatusMessage('Pick submitted. Waiting for Base Sepolia confirmation...');
       const confirmedReceipt = await publicClient.waitForTransactionReceipt({
         hash: receipt.hash,
         confirmations: 1,
@@ -479,7 +479,7 @@ export default function App() {
         throw new Error('Transaction reverted after approval.');
       }
 
-      setStatusMessage('Guess confirmed. Checking the sealed result...');
+      setStatusMessage('Guess confirmed. Checking the reveal...');
       await waitForAttemptSubmission(
         publicClient,
         round.id,
@@ -490,7 +490,7 @@ export default function App() {
 
       setIsCorrect(finalResult);
       setSubmitState(finalResult ? 'correct' : 'incorrect');
-      setStatusMessage(finalResult ? 'Correct. Account revealed.' : 'Incorrect. The answer stays hidden.');
+      setStatusMessage(finalResult ? 'Correct. Celeb revealed.' : 'Incorrect. The celeb stays hidden.');
     } catch (error) {
       console.error(error);
       setSubmitState('error');
@@ -515,9 +515,9 @@ export default function App() {
           <div className="brand-lock" aria-hidden="true">
             <LockKeyhole size={20} />
           </div>
-          <span>Blind Item Bureau</span>
+          <span>CT Celebrity Guess</span>
           <span className="brand-row-spacer" aria-hidden="true" />
-          <span className="brand-meta">Encrypted case file</span>
+          <span className="brand-meta">Encrypted reveal</span>
         </div>
 
         {!authenticated && !canPlayWithoutWallet ? (
@@ -528,13 +528,13 @@ export default function App() {
               <span className="flash-card flash-card-b">5 hints</span>
             </div>
             <p className="eyebrow">CT celebrity quiz</p>
-            <h1>Open the sealed blind item.</h1>
+            <h1>Guess the CT celebrity.</h1>
             <p>
-              Five public clues, three familiar accounts, one encrypted reveal. Sign in and solve the timeline gossip.
+              Five timeline hints, three familiar accounts, one private pick. Sign in and play the reveal.
             </p>
             <button className="primary-action" onClick={login}>
               <Play size={20} />
-              <span>Start the mystery</span>
+              <span>Start the quiz</span>
             </button>
           </div>
         ) : (
@@ -570,18 +570,18 @@ function BrandAside() {
         <span className="brand-lock">
           <LockKeyhole size={22} />
         </span>
-        <span>Blind Item Bureau</span>
+        <span>CT Celebrity Guess</span>
       </div>
-      <h2>Decrypt the timeline.</h2>
+      <h2>Who’s X famous?</h2>
       <p>
-        A blind-item guessing game powered by encrypted reveals. Five public clues, three familiar accounts,
-        and one sealed identity.
+        A blind-item celebrity quiz powered by encrypted reveals. Five timeline hints, three familiar accounts,
+        and one hidden star.
       </p>
-      <div className="ba-cipher">(k4#?p(n&gt;39-2)</div>
+      <div className="ba-cipher">HOT SEAT / FINAL THREE / REVEAL</div>
       <ul>
-        <li>Read the sealed dossier</li>
+        <li>Read the blind item</li>
         <li>Pick the account before time runs out</li>
-        <li>The identity only opens if you're right</li>
+        <li>The reveal only opens if you're right</li>
       </ul>
     </aside>
   );
@@ -630,16 +630,16 @@ function GameBoard(props: GameBoardProps) {
 
   const minutes = Math.floor(secondsLeft / 60);
   const seconds = String(secondsLeft % 60).padStart(2, '0');
-  const shouldStartNewMystery = submitState === 'error' && /already guessed/i.test(statusMessage);
-  const hasNoMysteries = submitState === 'error' && /every mystery/i.test(statusMessage);
+  const shouldStartNewMystery = submitState === 'error' && /already played/i.test(statusMessage);
+  const hasNoMysteries = submitState === 'error' && /every celebrity/i.test(statusMessage);
 
   return (
     <div className="game-board">
       <header className="game-header">
         <div className="show-title">
-          <p className="eyebrow">Tonight's sealed profile</p>
+          <p className="eyebrow">Tonight's blind item</p>
           <h1>Who is the CT celebrity?</h1>
-          <p>Read the blind item. Pick the account. The answer only opens if you're right.</p>
+          <p>Read the hints, pick the account, and see the reveal only if you nailed it.</p>
         </div>
         {!canPlayWithoutWallet && <button className="ghost-action" onClick={logout}>Exit</button>}
       </header>
@@ -650,7 +650,7 @@ function GameBoard(props: GameBoardProps) {
             <span>{minutes}:{seconds}</span>
           </div>
           <span className="status-note">
-            Case #{String(round.id).padStart(2, '0')} / 3 suspects / 5 clues
+            Celebrity #{String(round.id).padStart(2, '0')} / Final three / 5 hints
           </span>
           <div className="wallet-chip">
             {walletAddress
@@ -667,18 +667,18 @@ function GameBoard(props: GameBoardProps) {
         </p>
       )}
 
-      <section className="stage-card" aria-label="Mystery account">
+      <section className="stage-card" aria-label="Hidden celebrity">
         <div className="stage-lights" aria-hidden="true">
           <span />
           <span />
           <span />
         </div>
-        <div className="case-number" aria-hidden="true">CASE #{String(round.id).padStart(3, '0')}</div>
+        <div className="case-number" aria-hidden="true">CELEB #{String(round.id).padStart(3, '0')}</div>
         <div className="mystery-card">
           <div className="mystery-avatar small" aria-hidden="true">?</div>
           <div>
-            <p className="eyebrow">Redacted identity</p>
-            <strong>{isCorrect ? selectedAccount : 'Identity sealed until a correct guess'}</strong>
+            <p className="eyebrow">Hidden celebrity</p>
+            <strong>{isCorrect ? selectedAccount : 'Reveal locked until a correct guess'}</strong>
           </div>
           <Sparkles size={20} aria-hidden="true" />
         </div>
@@ -692,12 +692,12 @@ function GameBoard(props: GameBoardProps) {
         </div>
       </section>
 
-      <section className="clue-board" aria-label="Hints">
+      <section className="clue-board" aria-label="Celebrity hints">
         <div className="section-heading">
           <Trophy size={18} aria-hidden="true" />
           <div>
             <p className="eyebrow">Blind item</p>
-            <strong>Five things everyone noticed</strong>
+            <strong>Five hints from the timeline</strong>
           </div>
         </div>
         <div className="hint-list">
@@ -710,12 +710,12 @@ function GameBoard(props: GameBoardProps) {
         </div>
       </section>
 
-      <section className="guess-panel" aria-label="Answer options">
+      <section className="guess-panel" aria-label="Celebrity choices">
         <div className="section-heading">
           <Sparkles size={18} aria-hidden="true" />
           <div>
-            <p className="eyebrow">Suspect lineup</p>
-            <strong>Pick the account</strong>
+            <p className="eyebrow">Final three</p>
+            <strong>Pick the celebrity</strong>
           </div>
         </div>
         <div className="options-panel">
@@ -752,7 +752,7 @@ function GameBoard(props: GameBoardProps) {
             <Hourglass size={24} />
             <div>
               <strong>Time's up</strong>
-              <p>The identity stays sealed. Start a new mystery when you're ready.</p>
+              <p>The celeb stays hidden. Start a new quiz when you're ready.</p>
             </div>
           </>
         )}
@@ -761,7 +761,7 @@ function GameBoard(props: GameBoardProps) {
             <CheckCircle2 size={24} />
             <div>
               <strong>Correct</strong>
-              <p>{selectedAccount} was the match.</p>
+              <p>{selectedAccount} was tonight's celebrity.</p>
             </div>
           </>
         )}
@@ -770,7 +770,7 @@ function GameBoard(props: GameBoardProps) {
             <XCircle size={24} />
             <div>
               <strong>Incorrect</strong>
-              <p>The account stays hidden. Try a new round.</p>
+              <p>The celeb stays hidden. Try another round.</p>
             </div>
           </>
         )}
@@ -783,7 +783,7 @@ function GameBoard(props: GameBoardProps) {
         {hasNoMysteries ? (
           <button className="primary-action" disabled>
             <Hourglass size={20} />
-            <span>More mysteries soon</span>
+            <span>More celebs soon</span>
           </button>
         ) : isCorrect === null && submitState !== 'timeout' && !shouldStartNewMystery ? (
           <button className="primary-action" onClick={submitGuess} disabled={!canSubmit}>
@@ -792,14 +792,14 @@ function GameBoard(props: GameBoardProps) {
               {submitState === 'encrypting' || submitState === 'submitting'
                 ? 'Working...'
                 : selectedOption !== null && !selectedGuessReady
-                  ? 'Preparing encrypted guess...'
-                  : 'Approve encrypted guess'}
+                  ? 'Preparing private pick...'
+                  : 'Approve private pick'}
             </span>
           </button>
         ) : (
           <button className="primary-action" onClick={resetRound}>
             <RotateCcw size={20} />
-            <span>{submitState === 'timeout' || shouldStartNewMystery ? 'New mystery' : 'Play another round'}</span>
+            <span>{submitState === 'timeout' || shouldStartNewMystery ? 'New celebrity' : 'Play another round'}</span>
           </button>
         )}
       </div>
