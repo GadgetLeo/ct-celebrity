@@ -629,6 +629,13 @@ h1 {
   display: none;
 }
 
+.clue-column,
+.play-column {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+
 .mystery-card {
   position: relative;
   z-index: 1;
@@ -1008,18 +1015,12 @@ h1 {
     display: block;
   }
 
-  .stage-card,
-  .clue-board {
+  .clue-column {
     grid-column: 1;
   }
 
-  .guess-panel,
-  .result-panel,
-  .action-bar {
+  .play-column {
     grid-column: 2;
-  }
-
-  .guess-panel {
     position: sticky;
     top: 92px;
   }

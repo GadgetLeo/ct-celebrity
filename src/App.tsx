@@ -673,143 +673,147 @@ function GameBoard(props: GameBoardProps) {
         </p>
       )}
 
-      <section className="stage-card" aria-label="Hidden celebrity">
-        <div className="stage-lights" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-        </div>
-        <div className="case-number" aria-hidden="true">CELEB #{String(round.id).padStart(3, '0')}</div>
-        <div className="mystery-card">
-          <div className="mystery-avatar small" aria-hidden="true">?</div>
-          <div>
-            <p className="eyebrow">Hidden celebrity</p>
-            <strong>{isCorrect ? selectedAccount : 'Reveal locked until a correct guess'}</strong>
+      <div className="clue-column">
+        <section className="stage-card" aria-label="Hidden celebrity">
+          <div className="stage-lights" aria-hidden="true">
+            <span />
+            <span />
+            <span />
           </div>
-          <Sparkles size={20} aria-hidden="true" />
-        </div>
-        <div className="stage-marquee" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
-      </section>
-
-      <section className="clue-board" aria-label="Celebrity hints">
-        <div className="section-heading">
-          <Trophy size={18} aria-hidden="true" />
-          <div>
-            <p className="eyebrow">Blind item</p>
-            <strong>Five hints from the timeline</strong>
-          </div>
-        </div>
-        <div className="hint-list">
-          {round.hints.map((hint, index) => (
-            <article className="hint-card" key={`${round.id}-${hint}`}>
-              <span>{index + 1}</span>
-              <p>{hint}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="guess-panel" aria-label="Celebrity choices">
-        <div className="section-heading">
-          <Sparkles size={18} aria-hidden="true" />
-          <div>
-            <p className="eyebrow">Final three</p>
-            <strong>Pick the celebrity</strong>
-          </div>
-        </div>
-        <div className="options-panel">
-          {round.options.map((option, index) => {
-            const handle = getOptionHandle(option);
-            const avatar = getOptionAvatar(option);
-
-            return (
-              <button
-                className={`option-button ${selectedOption === index ? 'selected' : ''}`}
-                key={handle}
-                onClick={() => selectOption(index)}
-                disabled={isCorrect !== null || submitState === 'timeout'}
-                aria-pressed={selectedOption === index}
-              >
-                <span className="option-letter">{String.fromCharCode(65 + index)}</span>
-                {avatar && <img className="option-avatar" src={avatar} alt="" loading="lazy" />}
-                <span className="option-text">{handle}</span>
-              </button>
-            );
-          })}
-        </div>
-      </section>
-
-      {hasResultContent && (
-        <section className={`result-panel ${submitState}`} aria-live="polite">
-          {(submitState === 'encrypting' || submitState === 'submitting') && (
-            <div className="progress-row">
-              <span className="loading-mark small-spinner" aria-hidden="true" />
-              <p>{statusMessage}</p>
+          <div className="case-number" aria-hidden="true">CELEB #{String(round.id).padStart(3, '0')}</div>
+          <div className="mystery-card">
+            <div className="mystery-avatar small" aria-hidden="true">?</div>
+            <div>
+              <p className="eyebrow">Hidden celebrity</p>
+              <strong>{isCorrect ? selectedAccount : 'Reveal locked until a correct guess'}</strong>
             </div>
-          )}
-          {submitState === 'timeout' && (
-            <>
-              <Hourglass size={24} />
-              <div>
-                <strong>Time's up</strong>
-                <p>The celeb stays hidden. Start a new quiz when you're ready.</p>
-              </div>
-            </>
-          )}
-          {isCorrect === true && (
-            <>
-              <CheckCircle2 size={24} />
-              <div>
-                <strong>Correct</strong>
-                <p>{selectedAccount} was tonight's celebrity.</p>
-              </div>
-            </>
-          )}
-          {isCorrect === false && (
-            <>
-              <XCircle size={24} />
-              <div>
-                <strong>Incorrect</strong>
-                <p>The celeb stays hidden. Try another round.</p>
-              </div>
-            </>
-          )}
-          {isCorrect === null && !['timeout', 'encrypting', 'submitting'].includes(submitState) && statusMessage && (
-            <p>{statusMessage}</p>
-          )}
+            <Sparkles size={20} aria-hidden="true" />
+          </div>
+          <div className="stage-marquee" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+          </div>
         </section>
-      )}
 
-      <div className="action-bar">
-        {hasNoMysteries ? (
-          <button className="primary-action" disabled>
-            <Hourglass size={20} />
-            <span>More celebs soon</span>
-          </button>
-        ) : isCorrect === null && submitState !== 'timeout' && !shouldStartNewMystery ? (
-          <button className="primary-action" onClick={submitGuess} disabled={!canSubmit}>
-            <LockKeyhole size={20} />
-            <span>
-              {submitState === 'encrypting' || submitState === 'submitting'
-                ? 'Working...'
-                : selectedOption !== null && !selectedGuessReady
-                  ? 'Preparing private pick...'
-                  : 'Approve private pick'}
-            </span>
-          </button>
-        ) : (
-          <button className="primary-action" onClick={resetRound}>
-            <RotateCcw size={20} />
-            <span>{submitState === 'timeout' || shouldStartNewMystery ? 'New celebrity' : 'Play another round'}</span>
-          </button>
+        <section className="clue-board" aria-label="Celebrity hints">
+          <div className="section-heading">
+            <Trophy size={18} aria-hidden="true" />
+            <div>
+              <p className="eyebrow">Blind item</p>
+              <strong>Five hints from the timeline</strong>
+            </div>
+          </div>
+          <div className="hint-list">
+            {round.hints.map((hint, index) => (
+              <article className="hint-card" key={`${round.id}-${hint}`}>
+                <span>{index + 1}</span>
+                <p>{hint}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <div className="play-column">
+        <section className="guess-panel" aria-label="Celebrity choices">
+          <div className="section-heading">
+            <Sparkles size={18} aria-hidden="true" />
+            <div>
+              <p className="eyebrow">Final three</p>
+              <strong>Pick the celebrity</strong>
+            </div>
+          </div>
+          <div className="options-panel">
+            {round.options.map((option, index) => {
+              const handle = getOptionHandle(option);
+              const avatar = getOptionAvatar(option);
+
+              return (
+                <button
+                  className={`option-button ${selectedOption === index ? 'selected' : ''}`}
+                  key={handle}
+                  onClick={() => selectOption(index)}
+                  disabled={isCorrect !== null || submitState === 'timeout'}
+                  aria-pressed={selectedOption === index}
+                >
+                  <span className="option-letter">{String.fromCharCode(65 + index)}</span>
+                  {avatar && <img className="option-avatar" src={avatar} alt="" loading="lazy" />}
+                  <span className="option-text">{handle}</span>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
+        {hasResultContent && (
+          <section className={`result-panel ${submitState}`} aria-live="polite">
+            {(submitState === 'encrypting' || submitState === 'submitting') && (
+              <div className="progress-row">
+                <span className="loading-mark small-spinner" aria-hidden="true" />
+                <p>{statusMessage}</p>
+              </div>
+            )}
+            {submitState === 'timeout' && (
+              <>
+                <Hourglass size={24} />
+                <div>
+                  <strong>Time's up</strong>
+                  <p>The celeb stays hidden. Start a new quiz when you're ready.</p>
+                </div>
+              </>
+            )}
+            {isCorrect === true && (
+              <>
+                <CheckCircle2 size={24} />
+                <div>
+                  <strong>Correct</strong>
+                  <p>{selectedAccount} was tonight's celebrity.</p>
+                </div>
+              </>
+            )}
+            {isCorrect === false && (
+              <>
+                <XCircle size={24} />
+                <div>
+                  <strong>Incorrect</strong>
+                  <p>The celeb stays hidden. Try another round.</p>
+                </div>
+              </>
+            )}
+            {isCorrect === null && !['timeout', 'encrypting', 'submitting'].includes(submitState) && statusMessage && (
+              <p>{statusMessage}</p>
+            )}
+          </section>
         )}
+
+        <div className="action-bar">
+          {hasNoMysteries ? (
+            <button className="primary-action" disabled>
+              <Hourglass size={20} />
+              <span>More celebs soon</span>
+            </button>
+          ) : isCorrect === null && submitState !== 'timeout' && !shouldStartNewMystery ? (
+            <button className="primary-action" onClick={submitGuess} disabled={!canSubmit}>
+              <LockKeyhole size={20} />
+              <span>
+                {submitState === 'encrypting' || submitState === 'submitting'
+                  ? 'Working...'
+                  : selectedOption !== null && !selectedGuessReady
+                    ? 'Preparing private pick...'
+                    : 'Approve private pick'}
+              </span>
+            </button>
+          ) : (
+            <button className="primary-action" onClick={resetRound}>
+              <RotateCcw size={20} />
+              <span>{submitState === 'timeout' || shouldStartNewMystery ? 'New celebrity' : 'Play another round'}</span>
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
