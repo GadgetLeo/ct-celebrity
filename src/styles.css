@@ -556,10 +556,10 @@ h1 {
 
 .stage-card {
   position: relative;
-  min-height: 184px;
+  min-height: 156px;
   display: grid;
   align-items: end;
-  padding: 58px 14px 14px;
+  padding: 54px 14px 14px;
   overflow: hidden;
   border: 1px solid rgba(118, 212, 220, 0.34);
   border-radius: var(--radius-lg);
@@ -576,7 +576,7 @@ h1 {
   content: "";
   position: absolute;
   inset: auto -6% 0;
-  height: 42%;
+  height: 34%;
   background: repeating-linear-gradient(90deg, rgba(118, 212, 220, 0.5) 0 12px, transparent 12px 24px);
   opacity: 0.16;
 }

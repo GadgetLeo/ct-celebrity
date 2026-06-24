@@ -674,31 +674,6 @@ function GameBoard(props: GameBoardProps) {
       )}
 
       <div className="clue-column">
-        <section className="stage-card" aria-label="Hidden celebrity">
-          <div className="stage-lights" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </div>
-          <div className="case-number" aria-hidden="true">CELEB #{String(round.id).padStart(3, '0')}</div>
-          <div className="mystery-card">
-            <div className="mystery-avatar small" aria-hidden="true">?</div>
-            <div>
-              <p className="eyebrow">Hidden celebrity</p>
-              <strong>{isCorrect ? selectedAccount : 'Reveal locked until a correct guess'}</strong>
-            </div>
-            <Sparkles size={20} aria-hidden="true" />
-          </div>
-          <div className="stage-marquee" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-            <span />
-            <span />
-            <span />
-          </div>
-        </section>
-
         <section className="clue-board" aria-label="Celebrity hints">
           <div className="section-heading">
             <Trophy size={18} aria-hidden="true" />
@@ -814,6 +789,31 @@ function GameBoard(props: GameBoardProps) {
             </button>
           )}
         </div>
+
+        <section className="stage-card" aria-label="Hidden celebrity">
+          <div className="stage-lights" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </div>
+          <div className="case-number" aria-hidden="true">CELEB #{String(round.id).padStart(3, '0')}</div>
+          <div className="mystery-card">
+            <div className="mystery-avatar small" aria-hidden="true">?</div>
+            <div>
+              <p className="eyebrow">Hidden celebrity</p>
+              <strong>{isCorrect ? selectedAccount : 'Reveal locked until a correct guess'}</strong>
+            </div>
+            <Sparkles size={20} aria-hidden="true" />
+          </div>
+          <div className="stage-marquee" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+          </div>
+        </section>
       </div>
     </div>
   );
