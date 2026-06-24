@@ -520,8 +520,7 @@ export default function App() {
           <span className="brand-meta">
             <span>Encrypted by</span>
             <span className="fhenix-mark" aria-label="Fhenix">
-              <span className="fhenix-glyph" aria-hidden="true" />
-              <span>Fhenix</span>
+              <img src="/brand/fhenix-logo.svg" alt="Fhenix" />
             </span>
           </span>
         </div>

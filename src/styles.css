@@ -263,25 +263,20 @@ button {
 .fhenix-mark {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 7px 9px;
-  border: 1px solid rgba(159, 232, 238, 0.26);
+  justify-content: center;
+  width: 92px;
+  height: 31px;
+  padding: 0 11px;
+  border: 1px solid rgba(244, 247, 250, 0.48);
   border-radius: 999px;
-  color: var(--cream);
-  background: rgba(244, 247, 250, 0.08);
-  letter-spacing: 0.02em;
-  text-transform: none;
+  background: var(--cream);
+  box-shadow: 0 0 20px rgba(159, 232, 238, 0.16);
 }
 
-.fhenix-glyph {
-  width: 18px;
-  height: 18px;
-  border-radius: 6px 10px 6px 10px;
-  background:
-    radial-gradient(circle at 70% 25%, var(--cream) 0 2px, transparent 2.5px),
-    linear-gradient(135deg, var(--neon-yellow), var(--neon-cyan) 58%, var(--neon-pink));
-  box-shadow: 0 0 18px rgba(95, 226, 255, 0.34);
-  transform: rotate(45deg);
+.fhenix-mark img {
+  display: block;
+  width: 72px;
+  height: auto;
 }
 
 .landing-copy {
