@@ -302,9 +302,9 @@ button {
 }
 
 .mystery-avatar.small {
-  width: 58px;
-  height: 58px;
-  font-size: 2rem;
+  width: 48px;
+  height: 48px;
+  font-size: 1.65rem;
   border-width: 2px;
   box-shadow: 0 0 24px rgba(118, 212, 220, 0.24);
 }
@@ -556,10 +556,10 @@ h1 {
 
 .stage-card {
   position: relative;
-  min-height: 156px;
+  min-height: 112px;
   display: grid;
   align-items: end;
-  padding: 54px 14px 14px;
+  padding: 36px 12px 12px;
   overflow: hidden;
   border: 1px solid rgba(118, 212, 220, 0.34);
   border-radius: var(--radius-lg);
@@ -583,7 +583,7 @@ h1 {
 
 .stage-lights {
   position: absolute;
-  top: 18px;
+  top: 14px;
   left: 50%;
   display: flex;
   gap: 10px;
@@ -611,15 +611,15 @@ h1 {
 
 .case-number {
   position: absolute;
-  top: 14px;
-  right: 14px;
-  padding: 8px 10px;
+  top: 10px;
+  right: 12px;
+  padding: 6px 8px;
   border: 1px solid rgba(244, 247, 250, 0.16);
   border-radius: var(--radius-xs);
   color: var(--ink);
   background: var(--paper);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.64rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   transform: rotate(2deg);
@@ -636,14 +636,18 @@ h1 {
   align-content: start;
 }
 
+.play-column {
+  gap: 10px;
+}
+
 .mystery-card {
   position: relative;
   z-index: 1;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 12px;
-  padding: 14px;
+  gap: 10px;
+  padding: 10px;
   border: 1px solid rgba(244, 247, 250, 0.22);
   border-radius: var(--radius-md);
   background:
@@ -656,7 +660,7 @@ h1 {
   display: block;
   margin-top: 4px;
   color: var(--cream);
-  font-size: clamp(1rem, 4vw, 1.28rem);
+  font-size: clamp(0.95rem, 3.5vw, 1.12rem);
   line-height: 1.2;
 }
 

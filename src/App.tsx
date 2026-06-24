@@ -765,31 +765,6 @@ function GameBoard(props: GameBoardProps) {
           </section>
         )}
 
-        <div className="action-bar">
-          {hasNoMysteries ? (
-            <button className="primary-action" disabled>
-              <Hourglass size={20} />
-              <span>More celebs soon</span>
-            </button>
-          ) : isCorrect === null && submitState !== 'timeout' && !shouldStartNewMystery ? (
-            <button className="primary-action" onClick={submitGuess} disabled={!canSubmit}>
-              <LockKeyhole size={20} />
-              <span>
-                {submitState === 'encrypting' || submitState === 'submitting'
-                  ? 'Working...'
-                  : selectedOption !== null && !selectedGuessReady
-                    ? 'Preparing private pick...'
-                    : 'Approve private pick'}
-              </span>
-            </button>
-          ) : (
-            <button className="primary-action" onClick={resetRound}>
-              <RotateCcw size={20} />
-              <span>{submitState === 'timeout' || shouldStartNewMystery ? 'New celebrity' : 'Play another round'}</span>
-            </button>
-          )}
-        </div>
-
         <section className="stage-card" aria-label="Hidden celebrity">
           <div className="stage-lights" aria-hidden="true">
             <span />
@@ -814,6 +789,31 @@ function GameBoard(props: GameBoardProps) {
             <span />
           </div>
         </section>
+
+        <div className="action-bar">
+          {hasNoMysteries ? (
+            <button className="primary-action" disabled>
+              <Hourglass size={20} />
+              <span>More celebs soon</span>
+            </button>
+          ) : isCorrect === null && submitState !== 'timeout' && !shouldStartNewMystery ? (
+            <button className="primary-action" onClick={submitGuess} disabled={!canSubmit}>
+              <LockKeyhole size={20} />
+              <span>
+                {submitState === 'encrypting' || submitState === 'submitting'
+                  ? 'Working...'
+                  : selectedOption !== null && !selectedGuessReady
+                    ? 'Preparing private pick...'
+                    : 'Approve private pick'}
+              </span>
+            </button>
+          ) : (
+            <button className="primary-action" onClick={resetRound}>
+              <RotateCcw size={20} />
+              <span>{submitState === 'timeout' || shouldStartNewMystery ? 'New celebrity' : 'Play another round'}</span>
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
