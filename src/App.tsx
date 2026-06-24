@@ -512,12 +512,18 @@ export default function App() {
       {(authenticated || canPlayWithoutWallet) && <BrandAside />}
       <section className="hero-panel">
         <div className="brand-row">
-          <div className="brand-lock" aria-hidden="true">
-            <LockKeyhole size={20} />
+          <div className="brand-wordmark" aria-label="CT Celebrity Quiz">
+            <span className="brand-kicker">CT</span>
+            <span className="brand-title">Celebrity Quiz</span>
           </div>
-          <span>CT Celebrity Guess</span>
           <span className="brand-row-spacer" aria-hidden="true" />
-          <span className="brand-meta">Encrypted reveal</span>
+          <span className="brand-meta">
+            <span>Encrypted by</span>
+            <span className="fhenix-mark" aria-label="Fhenix">
+              <span className="fhenix-glyph" aria-hidden="true" />
+              <span>Fhenix</span>
+            </span>
+          </span>
         </div>
 
         {!authenticated && !canPlayWithoutWallet ? (
@@ -567,12 +573,12 @@ function BrandAside() {
   return (
     <aside className="brand-aside" aria-hidden="true">
       <div className="ba-mark">
-        <span className="brand-lock">
-          <LockKeyhole size={22} />
+        <span className="brand-wordmark" aria-label="CT Celebrity Quiz">
+          <span className="brand-kicker">CT</span>
+          <span className="brand-title">Celebrity Quiz</span>
         </span>
-        <span>CT Celebrity Guess</span>
       </div>
-      <h2>Who’s X famous?</h2>
+      <h2>Who's X famous?</h2>
       <p>
         A blind-item celebrity quiz powered by encrypted reveals. Five timeline hints, three familiar accounts,
         and one hidden star.

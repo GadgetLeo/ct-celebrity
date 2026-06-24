@@ -124,19 +124,6 @@ button {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: var(--teal);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.ba-mark span:last-child {
-  font-size: 1.1rem;
-}
-
-.ba-mark .brand-lock {
-  width: 40px;
-  height: 40px;
 }
 
 .brand-aside h2 {
@@ -211,17 +198,50 @@ button {
   min-height: 58px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   padding: 12px 16px;
   border-bottom: 1px solid rgba(118, 212, 220, 0.32);
-  color: var(--teal);
   background:
     repeating-linear-gradient(90deg, rgba(118, 212, 220, 0.16) 0 8px, transparent 8px 16px),
     linear-gradient(90deg, rgba(246, 216, 93, 0.1), transparent 46%),
     var(--ink-2);
-  font-weight: 700;
+}
+
+.brand-wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  color: var(--cream);
   text-transform: uppercase;
+}
+
+.brand-kicker {
+  display: inline-grid;
+  place-items: center;
+  min-width: 42px;
+  height: 34px;
+  padding: 0 9px;
+  border: 1px solid rgba(246, 216, 93, 0.72);
+  border-radius: var(--radius-xs);
+  color: var(--ink);
+  background: linear-gradient(135deg, var(--neon-yellow), var(--teal-bright));
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  font-weight: 700;
   letter-spacing: 0.04em;
+  box-shadow: 0 0 24px rgba(246, 216, 93, 0.24);
+  transform: rotate(-2deg);
+}
+
+.brand-title {
+  color: var(--teal-bright);
+  font-family: var(--font-mono);
+  font-size: clamp(1rem, 4vw, 1.28rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  text-shadow: 0 0 18px rgba(118, 212, 220, 0.36);
 }
 
 .brand-row-spacer {
@@ -230,23 +250,38 @@ button {
 
 .brand-meta {
   display: none;
+  align-items: center;
+  gap: 10px;
   color: var(--cream-soft);
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 
-.brand-lock {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  color: var(--ink);
-  background: var(--teal);
-  box-shadow: 0 0 0 4px rgba(118, 212, 220, 0.14);
-  flex: 0 0 auto;
+.fhenix-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 9px;
+  border: 1px solid rgba(159, 232, 238, 0.26);
+  border-radius: 999px;
+  color: var(--cream);
+  background: rgba(244, 247, 250, 0.08);
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.fhenix-glyph {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px 10px 6px 10px;
+  background:
+    radial-gradient(circle at 70% 25%, var(--cream) 0 2px, transparent 2.5px),
+    linear-gradient(135deg, var(--neon-yellow), var(--neon-cyan) 58%, var(--neon-pink));
+  box-shadow: 0 0 18px rgba(95, 226, 255, 0.34);
+  transform: rotate(45deg);
 }
 
 .landing-copy {
@@ -960,7 +995,7 @@ h1 {
   }
 
   .brand-meta {
-    display: block;
+    display: inline-flex;
   }
 
   .landing-copy {
